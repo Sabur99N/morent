@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens (Tailwind v4 CSS-first theme)                         */
+/* ------------------------------------------------------------------ */
+@theme {
+    --color-border-color: rgba(195, 212, 233, 0.4);
+    --color-primary: #3563e9;
+    --color-primary-hover: #2a4fd0;
+    --color-red: #ff4423;
+    --color-body-bg: #f6f7f9;
+    --color-dark-bg: #0d1120;
+    --color-secondary-500: #1a202c;
+    --color-secondary-400: #3d5278;
+    --color-secondary-300: #90a3bf;
+    --color-secondary-200: #c3d4e9;
+    --color-footer-links-color: rgba(19, 19, 19, 0.6);
+    --color-footer-border: rgba(19, 19, 19, 0.16);
+    --color-info-500: #54a6ff;
+    --color-ripple-bg: rgba(53, 99, 233, 0.3);
+
+    --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui,
+        sans-serif;
+
+    --text-6xl: 3rem;
+    --text-6xl--line-height: 1.1;
+    --text-5xl: 2.5rem;
+    --text-4xl: 2.25rem;
+    --text-3xl: 2rem;
+    --text-2xl: 1.5rem;
+    --text-xl: 1.25rem;
+    --text-lg: 1.125rem;
+    --text-base: 1rem;
+    --text-sm: 0.875rem;
+    --text-xs: 0.75rem;
+
+    --shadow-card: 0px 12px 30px -14px rgba(19, 42, 89, 0.15);
+    --shadow-soft: 0px 8px 24px -12px rgba(19, 42, 89, 0.12);
+
+    /* Animations */
+    --animate-fade-in: fade-in 0.4s ease-out both;
+    --animate-fade-in-up: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-fade-in-down: fade-in-down 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-scale-in: scale-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-slide-in-right: slide-in-right 0.35s
+        cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-slide-in-left: slide-in-left 0.35s cubic-bezier(0.16, 1, 0.3, 1)
+        both;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fade-in-down {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes scale-in {
+        from {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    @keyframes slide-in-right {
+        from {
+            opacity: 0;
+            transform: translateX(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes slide-in-left {
+        from {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+    a,
+    button,
+    input,
+    textarea,
+    select {
+        outline: none;
+    }
+
+    /* Accessible, keyboard-only focus ring */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [tabindex]:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-radius: 6px;
+    }
+
+    body {
+        @apply font-sans text-base text-secondary-500 bg-body-bg antialiased;
+    }
+
+    h1 {
+        @apply text-4xl md:text-6xl font-bold leading-tight;
+    }
+    h2 {
+        @apply text-3xl md:text-5xl font-bold;
+    }
+    h3 {
+        @apply text-2xl md:text-4xl font-bold;
+    }
+    h4 {
+        @apply text-xl md:text-3xl font-semibold;
+    }
+    h5 {
+        @apply text-lg md:text-2xl font-semibold;
+    }
+    h6 {
+        @apply text-base md:text-xl font-semibold;
+    }
+    small {
+        @apply text-sm;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities & helpers                                                 */
+/* ------------------------------------------------------------------ */
+@utility container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 80rem;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-inline: 2rem;
+    }
+}
+
+@utility transition-main {
+    transition-property: color, background-color, border-color, fill, stroke,
+        opacity, box-shadow, transform, filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 250ms;
+}
+
+@utility no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Card hover lift */
+@utility hover-lift {
+    transition:
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    &:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* Skip link (visually hidden until focused) */
+.skip-link {
+    position: fixed;
+    left: 1rem;
+    top: -100px;
+    z-index: 200;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    transition: top 0.2s ease-out;
+}
+.skip-link:focus {
+    top: 1rem;
+}
+
+.big {
+    font-size: var(--text-lg);
+}
+.tiny {
+    font-size: var(--text-xs);
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* ------------------------------------------------------------------ */
+/* Respect user motion preferences                                     */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
